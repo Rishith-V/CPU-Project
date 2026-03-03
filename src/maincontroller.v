@@ -12,74 +12,74 @@ module maincontroller (op, regw, immsrc, alusrc, memw, branch, aluop, resultsrc,
             // R-type: add, sub, and, or, xor, slt
                 7'b0110011: 
                     begin
-                        RegWrite  = 1; ImmSrc = 3'bxxx;
-                        ALUSrc    = 0; ALUOp  = 2'b10;
-                        MemWrite  = 0; ResultSrc = 2'b00;
-                        Branch    = 0; Jump = 0; JumpReg = 0;
+                        regw      = 1; immsrc = 3'bxxx;
+                        alusrc    = 0; aluop  = 2'b10;
+                        memw      = 0; resultsrc = 2'b00;
+                        branch    = 0; jump = 0; jumpreg = 0;
                     end
 
-            // I-ALU: addi (and future andi, ori etc)
+            // I-ALU: addi
                 7'b0010011: 
                     begin
-                        RegWrite  = 1; ImmSrc = 3'b000;
-                        ALUSrc    = 1; ALUOp  = 2'b10;
-                        MemWrite  = 0; ResultSrc = 2'b00;
-                        Branch    = 0; Jump = 0; JumpReg = 0;
+                        regw      = 1; immsrc = 3'b000;
+                        alusrc    = 1; aluop  = 2'b10;
+                        memw      = 0; resultsrc = 2'b00;
+                        branch    = 0; jump = 0; jumpreg = 0;
                     end
             // LW
                 7'b0000011: 
                     begin
-                        RegWrite  = 1; ImmSrc = 3'b000;
-                        ALUSrc    = 1; ALUOp  = 2'b00;
-                        MemWrite  = 0; ResultSrc = 2'b01;
-                        Branch    = 0; Jump = 0; JumpReg = 0;
+                        regw      = 1; immsrc = 3'b000;
+                        alusrc    = 1; aluop  = 2'b00;
+                        memw      = 0; resultsrc = 2'b01;
+                        branch    = 0; jump = 0; jumpreg = 0;
                     end
             // SW
                 7'b0100011: 
                     begin
-                        RegWrite  = 0; ImmSrc = 3'b001;
-                        ALUSrc    = 1; ALUOp  = 2'b00;
-                        MemWrite  = 1; ResultSrc = 2'bxx;
-                        Branch    = 0; Jump = 0; JumpReg = 0;
+                        regw      = 0; immsrc = 3'b001;
+                        alusrc    = 1; aluop  = 2'b00;
+                        memw      = 1; resultsrc = 2'bxx;
+                        branch    = 0; jump = 0; jumpreg = 0;
                     end
             // BEQ
                 7'b1100011: 
                     begin
-                        RegWrite  = 0; ImmSrc = 3'b010;
-                        ALUSrc    = 0; ALUOp  = 2'b01;
-                        MemWrite  = 0; ResultSrc = 2'bxx;
-                        Branch    = 1; Jump = 0; JumpReg = 0;
+                        regw      = 0; immsrc = 3'b010;
+                        alusrc    = 0; aluop  = 2'b01;
+                        memw      = 0; resultsrc = 2'bxx;
+                        branch    = 1; jump = 0; jumpreg = 0;
                     end
             // LUI
                 7'b0110111: 
                     begin
-                        RegWrite  = 1; ImmSrc = 3'b011;
-                        ALUSrc    = 1'bx; ALUOp = 2'bxx;
-                        MemWrite  = 0; ResultSrc = 2'b11;
-                        Branch    = 0; Jump = 0; JumpReg = 0;
+                        regw      = 1; immsrc = 3'b100;  // U-type
+                        alusrc    = 1'bx; aluop = 2'bxx;
+                        memw      = 0; resultsrc = 2'b11;
+                        branch    = 0; jump = 0; jumpreg = 0;
                     end
             // JAL
                 7'b1101111: 
                     begin
-                        RegWrite  = 1; ImmSrc = 3'b100;
-                        ALUSrc    = 1'bx; ALUOp = 2'bxx;
-                        MemWrite  = 0; ResultSrc = 2'b10;
-                        Branch    = 0; Jump = 1; JumpReg = 0;
+                        regw      = 1; immsrc = 3'b011;  // J-type
+                        alusrc    = 1'bx; aluop = 2'bxx;
+                        memw      = 0; resultsrc = 2'b10;
+                        branch    = 0; jump = 1; jumpreg = 0;
                     end
             // JALR
                 7'b1100111: 
                     begin
-                        RegWrite  = 1; ImmSrc = 3'b000;
-                        ALUSrc    = 1; ALUOp  = 2'b00;
-                        MemWrite  = 0; ResultSrc = 2'b10;
-                        Branch    = 0; Jump = 0; JumpReg = 1;
+                        regw      = 1; immsrc = 3'b000;
+                        alusrc    = 1; aluop  = 2'b00;
+                        memw      = 0; resultsrc = 2'b10;
+                        branch    = 0; jump = 0; jumpreg = 1;
                     end
                 default: 
                     begin
-                        RegWrite  = 0; ImmSrc = 3'bxxx;
-                        ALUSrc    = 1'bx; ALUOp = 2'bxx;
-                        MemWrite  = 0; ResultSrc = 2'bxx;
-                        Branch    = 0; Jump = 0; JumpReg = 0;
+                        regw      = 0; immsrc = 3'bxxx;
+                        alusrc    = 1'bx; aluop = 2'bxx;
+                        memw      = 0; resultsrc = 2'bxx;
+                        branch    = 0; jump = 0; jumpreg = 0;
                     end
 
             endcase
