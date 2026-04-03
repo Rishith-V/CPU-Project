@@ -22,7 +22,8 @@ module alu(a, b, ctrl, outp, zero);
                 3'b010 : outp = a & b;
                 3'b011 : outp = a | b;
                 3'b100 : outp = a ^ b;
-                3'b101 : outp = {31'b0, sum[31] ^ of};  //lui doesn't enter alu at all
+                3'b101 : outp = {31'b0, sum[31] ^ of};  //slt
+                //lui doesn't enter alu at all
             endcase
         end
 
