@@ -1,9 +1,9 @@
-module id_ex_pipe(immext_ex, rdata1_ex, rdata2_ex, rd_ex, pc_ex, pcplus4_ex, regw_ex, alusrc_ex, memw_ex, branch_ex, jump_ex, jumpreg_ex, aluctrl_ex, resultsrc_ex, clk, reset,immext_id, rdata1_id, rdata2_id, rd_id, pc_id, pcplus4_id, regw_id, alusrc_id, memw_id, branch_id, jump_id, jumpreg_id, aluctrl_id, resultsrc_id);
+module id_ex_pipe(immext_ex, rdata1_ex, rdata2_ex, rd_ex, pc_ex, pcplus4_ex, regw_ex, alusrc_ex, memw_ex, branch_ex, jump_ex, jumpreg_ex, aluctrl_ex, resultsrc_ex, rs1_ex, rs2_ex, clk, reset,immext_id, rdata1_id, rdata2_id, rd_id, pc_id, pcplus4_id, regw_id, alusrc_id, memw_id, branch_id, jump_id, jumpreg_id, aluctrl_id, resultsrc_id, rs1_id, rs2_id);
 
     input clk, reset, regw_id, memw_id, branch_id, jump_id, jumpreg_id, alusrc_id;
     input [1:0] resultsrc_id;
     input [31:0] rdata1_id, rdata2_id, pc_id, pcplus4_id, immext_id;
-    input [4:0] rd_id;
+    input [4:0] rd_id, rs1_id, rs2_id;
     input [2:0] aluctrl_id;
 
 
@@ -11,7 +11,7 @@ module id_ex_pipe(immext_ex, rdata1_ex, rdata2_ex, rd_ex, pc_ex, pcplus4_ex, reg
     output reg [1:0] resultsrc_ex;
     output reg [2:0] aluctrl_ex;
     output reg [31:0] rdata1_ex, rdata2_ex, pc_ex, pcplus4_ex, immext_ex;
-    output reg [4:0] rd_ex;
+    output reg [4:0] rd_ex, rs1_ex, rs2_ex;
 
     always@(posedge clk or posedge reset)
         begin
@@ -31,6 +31,8 @@ module id_ex_pipe(immext_ex, rdata1_ex, rdata2_ex, rd_ex, pc_ex, pcplus4_ex, reg
                     immext_ex <= 32'b0;
                     rd_ex <= 5'b0;
                     aluctrl_ex <= 3'b0;
+                    rs1_ex <= rs1_id;
+                    rs2_ex <= rs2_id;
                 end
             else
                 begin
@@ -48,6 +50,8 @@ module id_ex_pipe(immext_ex, rdata1_ex, rdata2_ex, rd_ex, pc_ex, pcplus4_ex, reg
                     immext_ex <= immext_id;
                     rd_ex <= rd_id;
                     aluctrl_ex <= aluctrl_id;
+                    rs1_ex <= rs1_id;
+                    rs2_ex <= rs2_id;
                 end
         end
 
