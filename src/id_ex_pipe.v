@@ -31,8 +31,8 @@ module id_ex_pipe(immext_ex, rdata1_ex, rdata2_ex, rd_ex, pc_ex, pcplus4_ex, reg
                     immext_ex <= 32'b0;
                     rd_ex <= 5'b0;
                     aluctrl_ex <= 3'b0;
-                    rs1_ex <= rs1_id;
-                    rs2_ex <= rs2_id;
+                    rs1_ex <= 5'b0;
+                    rs2_ex <= 5'b0;
                 end
             else
                 begin
