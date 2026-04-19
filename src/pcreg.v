@@ -1,14 +1,14 @@
-module pcreg(inp, outp, clk, reset);
+module pcreg(inp, outp, clk, reset, stall);
 
     input [31:0] inp;
     output reg [31:0] outp;
-    input clk, reset;
+    input clk, reset, stall;
 
     always@(posedge clk)
         begin
             if(reset)
                 outp <= 32'b0;
-            else
+            else if(!stall)
                 outp <= inp;
         end
 
