@@ -1,6 +1,6 @@
-module if_id_pipe(inst_id, pcplus4_id, pc_id, pc_if, inst_if, pcplus4_if, clk, reset);
+module if_id_pipe(inst_id, pcplus4_id, pc_id, pc_if, inst_if, pcplus4_if, clk, reset, flush, stall);
 
-    input clk, reset;
+    input clk, reset, flush, stall;
     input [31:0] inst_if, pcplus4_if, pc_if;
 
     output reg [31:0] inst_id, pcplus4_id, pc_id;
@@ -13,7 +13,13 @@ module if_id_pipe(inst_id, pcplus4_id, pc_id, pc_if, inst_if, pcplus4_if, clk, r
                     pcplus4_id <= 32'b0;
                     pc_id <= 32'b0;
                 end
-            else
+            else if(flush)
+                begin
+                    inst_id <= 32'b0;
+                    pcplus4_id <= 32'b0;
+                    pc_id <= 32'b0;
+                end
+            else if(!stall)
                 begin
                     inst_id <= inst_if;
                     pcplus4_id <= pcplus4_if;
